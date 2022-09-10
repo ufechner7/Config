@@ -1,7 +1,8 @@
-using YAML, Parameters, StructTypes
+using YAML, Parameters, StructTypes, StructEquality
 
 include("wc_settings.jl")
 StructTypes.StructType(::Type{WCSettings}) = StructTypes.Mutable()
+@struct_hash_equal WCSettings
 
 const SETTINGS = WCSettings() 
 
@@ -15,4 +16,8 @@ function update_settings(dict, sections)
 end
 
 dict = YAML.load_file("data/wc_settings.yaml")
+OLD = deepcopy(SETTINGS)
+@assert OLD == SETTINGS
 update_settings(dict, ["wc_settings"])
+
+@assert struct_isapprox(OLD, SETTINGS, rtol=1e-12)
