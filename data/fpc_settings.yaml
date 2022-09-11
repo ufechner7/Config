@@ -1,0 +1,8 @@
+fpc_settings:
+    dt                 : 0.05   # period time [s]
+    prn                : false
+    prn_ndi_gain       : false
+    prn_est_psi_dot    : false
+    prn_va             : false
+    use_radius         : true
+    use_chi            : true
